@@ -1,0 +1,31 @@
+Task : Creating multiple directories in windows using cmd
+
+1) Go to the drive where you want to create the directory
+
+C:\Users\myuser>F:
+F:\>
+
+2) Create a directory where you want to create multiple directories
+
+F:\>mkdir newOne
+F:\>cd newOne
+
+3) Inside newOne directory create multiple directories named tr1, tr2 and tr3
+
+F:\newOne>md tr1 tr2 tr3
+
+4) Directories created sucessfully
+
+
+
+
+
+
+
+
+
+
+
+
+
+
