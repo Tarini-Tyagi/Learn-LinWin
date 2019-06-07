@@ -1,0 +1,19 @@
+Task: To create a user in windows using cmd
+
+1) Open cmd and go to the following location
+C:\WINDOWS\system32>
+
+2)  Make a new user :
+C:\WINDOWS\system32>net user username password /add
+
+For example:
+C:\WINDOWS\system32>net user Mumbai 123 /add
+The command completed successfully.
+
+3) Give permission to the newly created user:
+
+C:\WINDOWS\system32>net localgroup administrators Mumbai /add
+The command completed successfully.
+
+
+4) User sucessfully created
