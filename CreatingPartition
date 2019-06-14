@@ -1,0 +1,50 @@
+1) Create Partition
+fdisk -l    show no. of HD attached to linux
+ fdisk -l /dev/xvdf
+ fdisk  /dev/xvdf           to go inside HD
+smallest unit of HD-Sector
+Size of 1 sector == 512byte 
+new or n----p for primary (p is suboption of n so dont clash with print)
+For 1st partition press enter (for default)
+On extended----- 1st sector pe enter  and 2nd pe bhi enter
+                       if we'll give size then remaining will be waste
+
+*****Never ever delete or format extended *****
+all the logical will also get deleted
+
+2) format that partition -- NTFS-windows(HFS+ for mac, XFS for RedHat)  (format==setting up environment)
+ On formatting index is getting deleted not the data
+If PD is being formated by any of these than your os will not detect it
+new PD is being formated by FAT or vFAT --- accepted by all os window , mac etc
+
+#mkfs.xfs     /dev/xvdf1   to format
+
+#mkfs. +2times tab ===FAT option not available for amazon cloud it knows we cant attach 
+out pd
+3) mount- linking a partition with a folder
+on connecting Pd , it creates a folder(/tmp/newVol) link it with /dev/xvdf  and folder shown on desktop
+
+to check the folder to which partition is linked
+#df
+create a folder and map/link it with partition
+
+root,home,etc,tmp/dev/mnt,media
+#mkdir /mnt/mypart
+#mount /dev/xvdf  /mnt/mypart
+#echo $?
+Mounting can be done only after formatting
+#df (disk free) -- to see where we have mount
+# df -h (human readable format)
+#df -hT (t for format type)
+
+media -- icon will be created(if folder is created in media to mount)
+mnt-- icon will not be created 
+
+if system is restart than mapping will be removed (link will be removed--data will be there)
+you have to link it again or make permanent
+/etc/ftab    file system tabbing
+where we make mounting permanent in HD
+mount -a --- to cross check the entry in file
+
+
+
