@@ -1,0 +1,11 @@
+Question:  Do the following  settings in redhat
+
+A)  your system must not be able install a software telnet using yum
+B)  your yum url have that telnet package it must not be install
+
+Solution :
+In Bash enter the following command
+
+yum-config-manager --disable tel
+
+Doing this will disable the 'tel' repo 
