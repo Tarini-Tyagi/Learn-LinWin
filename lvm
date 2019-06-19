@@ -1,0 +1,95 @@
+sudo -s
+ec2-user == 1234 for 2
+On os 2
+[root@ip-172-31-14-181 ~]# passwd ec2-user
+Changing password for user ec2-user.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@ip-172-31-14-181 ~]# vi /etc/ssh/sshd_config +65
+[root@ip-172-31-14-181 ~]# systemctl restart sshd
+[root@ip-172-31-14-181 ~]# ssh ec2-user
+
+On os 1 --- ansible
+# cd /etc/ansible 
+# ssh ec2-user@35.153.127.151 cal 
+ip of os2
+yes and password of os2
+# >hosts                                                                                                
+[root@ip-172-31-2-107 ansible]# vi hosts                                                                                              
+[root@ip-172-31-2-107 ansible]# cat hosts                                                                                             
+[a]                                                                                                                                   
+35.153.127.151                           
+
+# ansible a -u ec2-user -m ping -k                                                                      
+SSH password: space space 321                                                                                                          
+35.153.127.151 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+[root@ip-172-31-2-107 ansible]#            
+# ansible a -u ec2-user -k -m ping 
+---------------------------------------------------------------------------------------------
+# cd /etc/ansible                                                                                             
+[root@ip-172-31-2-107 ansible]# echo hello>index.html                                                                                 
+[root@ip-172-31-2-107 ansible]# ansible localhost -m copy -a "src=index.html dest=/var/www/html"
+# mkdir playbooks                                                                                       
+[root@ip-172-31-2-107 ansible]# ls                                                                                                    
+ansible.cfg  hosts  index.html  playbooks  roles
+[root@ip-172-31-2-107 ansible]# cd playbooks                                                                                          
+[root@ip-172-31-2-107 playbooks]# pwd                                                                                                 
+/etc/ansible/playbooks                                                                                                                
+[root@ip-172-31-2-107 playbooks]# vi first.yml                                                                                        
+[root@ip-172-31-2-107 playbooks]# ansible-playbook first.yml --syntax-check
+
+playbook: first.yml                                                                                                                   
+[root@ip-172-31-2-107 playbooks]# ansible-playbook first.yml 
+# mkdir playbooks                                                                                       
+[root@ip-172-31-2-107 ansible]# ls                                                                                                    
+ansible.cfg  hosts  index.html  playbooks  roles
+[root@ip-172-31-2-107 ansible]# cd playbooks                                                                                          
+[root@ip-172-31-2-107 playbooks]# pwd                                                                                                 
+/etc/ansible/playbooks                                                                                                                
+[root@ip-172-31-2-107 playbooks]# vi first.yml                                                                                        
+[root@ip-172-31-2-107 playbooks]# ansible-playbook first.yml --syntax-check
+
+playbook: first.yml                                                                                                                   
+[root@ip-172-31-2-107 playbooks]# ansible-playbook first.yml 
+# ansible-doc yum --- for documentation purposes
+# ansible-doc -l ---List of modules in ansible
+# ansible-doc -l | wc -l                                                                              
+2080                               
+
+# ansible-doc -l| grep -i aws | wc -l                                                                 
+103                                                                   
+
+
+blog>slashdevops.blogspot.com>search ansible
+..................................................................................................
+
+
+-k ask for password
+if i have to automate 10 system then 10 password needed
+we use: ssh-keygen
+2 keys are made
+1 key will be send to that os
+#ssh-copy-id ip
+
+#ssh ec2-user@ip cal
+#ls .ssh/                  list of the hosts from which we have connected
+#cat .ssh/known_hosts                    we do this if unreachable problem occurs
+#rm .ssh/known_hosts                                          
+
+# ansible a
+a = In inventory file, we mention ip add of systems, a is used as fxn to access all the ip 
+
+adhoc commands -- when we are running ansible commands on terminal it is said
+#vi /etc/ansible/hosts
+#ansible sys -m ping       [but we don't have the password]
+?yes
+# ansible localhost -m ping  [don't write 127.0.0.1 in inventry file, this command will give error]
+#cat /etc/os-release
+
+http://public-ip:80 --------------http server
+
