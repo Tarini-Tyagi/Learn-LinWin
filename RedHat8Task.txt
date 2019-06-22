@@ -1,0 +1,162 @@
+# useradd -u 4332 jean
+[root@ip-172-31-41-53 ~]# passwd jean
+Changing password for user jean.
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@ip-172-31-41-53 ~]# grep 'jean'  /etc/passwd
+jean:x:4332:4332::/home/jean:/bin/bash
+[root@ip-172-31-41-53 ~]#
+# mkdir adm
+[root@ip-172-31-41-53 common]# pwd
+/common
+[root@ip-172-31-41-53 common]# groupadd dev
+[root@ip-172-31-41-53 common]# useradd natasha
+[root@ip-172-31-41-53 common]# passwd natasha
+Changing password for user natasha.
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@ip-172-31-41-53 common]# useradd harry
+[root@ip-172-31-41-53 common]# passwd harry
+Adding primary group:
+# usermod -g dev harry
+[root@ip-172-31-41-53 common]# usermod -G dev natasha
+# groups natasha
+natasha : natasha dev
+# usermod -a -G manager natasha
+[root@ip-172-31-41-53 common]# groups natasha
+natasha : natasha dev manager
+[root@ip-172-31-41-53 common]# usermod -a -G manager harry
+[root@ip-172-31-41-53 common]# groups harry
+harry : dev manager
+# chgrp -R manager /common/adm
+2-ii) # useradd sarah -s /sbin/nologin
+
+[root@ip-172-31-41-53 common]# cd /common/adm
+[root@ip-172-31-41-53 adm]# echo "Hello">try.txt
+[root@ip-172-31-41-53 adm]# ls
+try.txt
+# ls -ld
+drwxr-xr-x. 2 root manager 21 Jun 20 05:13 .
+]# chmod gu+rwx /common/adm
+[root@ip-172-31-41-53 adm]# ls -ld
+drwxrwx---. 2 root manager 21 Jun 20 05:13 .
+# crontab -e
+23 15 * * * harry /home/harry/ mkdir adhoc
+# cp /etc/fstab /var/tmp/fstab
+
+
+# groupadd thanos
+# chgrp -R thanos /var/tmp/fstab
+# chmod go-rwx /var/tmp/fstab
+# chmod u+rwx /var/tmp/fstab
+Don't do this as owner should be thanos# chown natasha /var/tmp/fstab
+# cd /var/tmp
+
+# ls -l
+total 4
+drwxrwxrwt. 2 root    root     6 Jun 20 04:43 cloud-init
+-rwx------. 1 natasha thanos 427 Jun 20 05:49 fstab
+drwx------. 3 root    root    17 Jun 20 04:43 systemd-pr
+
+
+# su harry
+[harry@ip-172-31-41-53 tmp]$ cd /var/tmp
+[harry@ip-172-31-41-53 tmp]$ ls
+$ cat fstab
+cat: fstab: Permission denied
+
+# chmod gou-x /var/tmp/fstab
+# setfacl -m user:harry:0 /var/tmp/fstab
+# setfacl -m user:natasha:rw /var/tmp/fstab
+# useradd thanos -g thanos
+[root@ip-172-31-41-53 tmp]# chown thanos /var/tmp/fstab
+# ls -l
+total 4
+drwxrwxrwt. 2 root   root     6 Jun 20 04:43 cloud-init
+-rw-rw---T+ 1 thanos thanos 427 Jun 20 06:16 fstab
+drwx------. 3 root   root    17 Jun 20 04:43 systemd-private-f6bdadad9d314409841528a403d3b315-chronyd.service-fUeeCS
+
+...............................................................................................
+virt-manager
+skeleton directory
+
+whenever a user is created it creates group with same name
+so usermod -g manager -- is the secondary group
+mkdir -p /common/adm
+sgit--group inherit
+
+chmod g+s /common/adm
+chmod o-rwx /common/adm/
+chmod 2070 /common/adm --- all per in single line
+
+cat /etc/crontab
+
+#which mkdir
+/usr/bin/mkdir
+
+crontab -e -u harry 
+
+23 15 * * * /usr/bin/mkdir /home/harry/adhoc
+Do this:
+systemctl restart crond.service
+systemctl enable crond.service
+
+***cp can rename at other loc
+cp /etc/fstab /var/tmp/hello
+file renamed to hello
+
+Always set passwd for user
+chown thanos:thanos /var/tmp/fstab
+ setfacl -m user:natasha:6 /var/tmp/fstab
+
+crontab -e -- editor for current user
+can't break password at aws
+:::::Password Break:::::
+
+1) Reboot
+
+1- kernel
+2- rescue kernal
+
+select 1 
+press e for edit
+4th line -- linux   press end key
+enforcing=0 rd.break
+press Ctrl plus x
+
+
+switch_root:/# mount -o remount,rw /sysroot/
+#chroot /sysroot/
+sh-4.4#pwd
+#whoami
+#passwd root
+New password: whatever in ques
+sh-4.4#exit
+switch_root:/#exit
+logout-----------o/p
+
+localhost login:root
+Password:
+[root@localhost] ls -ldz /etc/shadow
+#getenforce
+Permissive
+#restorecon /etc/shadow
+#ls -ldz /etc/shadow
+#reboot
+
+It will accept our pwd
+
+
+Don't reboot otherwise old and new passwd won't work
+
+
+Authentication failure: if done mistake
+
+
+
+
+
+
+
