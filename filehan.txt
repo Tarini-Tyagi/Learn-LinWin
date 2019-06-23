@@ -1,0 +1,99 @@
+File Handling:----
+
+File / Directory handling --
+
+directory operations:
+create, delete, rename, store, permission, cp, cut, blank
+ $cd Desktop
+$python3
+>>>import os
+>>>import time
+>>>dir(os)
+
+>>>for i in dir(time):
+	print(i)
+	time.sleep(1)
+>>>for i in dir(time):-------display elements having time
+	if 'time' in i:
+		print(i)
+>>>x=[]
+>>>for i in dir(time)
+>>>	if 'time' in i:
+		x.append(i)
+>>>x ----print x
+>>>y=[i for i in dir(time)  if 'time' in i ]----writing above code in one line
+1st-i   is a variable in which data after execution of if will be stored
+
+
+>>>import os
+>>>[j for j in dir(os) if 'dir' in j]
+output--- chdir,mkdir,rmdir
+>>>os.mkdir('heeeeeeeeelo')
+>>>os.rmdir('heeeeeeeeelo')
+
+ls == listdir
+os.listdir('/home/adhoc') -----also shows hidden content
+Q-copy the data by listdir and copy data in pd
+
+command related to permission ---chmod
+[j for j in dir(os) if 'mod' in j]
+'chmod' 'fchmod'---o/p
+
+if mkdir command is not available in linux than make the dir ---os.mkdir --it is with python
+
+File Handling:
+	permission
+	read
+	create -read -y
+	remove, append, write
+#vim file.py
+#!/usr/bin/python3
+# creating a file
+f = open('filename','w')
+f=write("heeeeeeeeeeeelllllllllllllllloooooooooooooo")
+f.write('/n')
+f.close() ------ hack and write data in file if not close
+>
+:wq
+!v
+!p ----to execute python   python3 file.py
+'''> --- overwrite, make new, it make a file whether it is created or not on current location
+'''
+
+read op:---
+open('filename','r')
+data=f.read()
+print(data)
+#f.write()///error will be there
+f.close()
+
+in read mode we cant write in file or delete file
+# read and write mode     w+(this will create a file first then you can read)
+open('filename1','w+')
+f.write("Hello")
+f.write('/n')
+data=f.read()
+print(data)
+f.seek(0)---to hold the cursor---read from oth poz
+f.seek(1)--- corsor will read ello from 2nd location
+f.close()
+
+# read and write mode     r+(this will not create a file  read/write can be performed)
+data will get overwrite
+open('filename1','w+')
+data=f.read()
+print(data)
+f.write("corrro")
+f.write('/n')
+f.seek(0)
+print(f.read())
+f.close()
+
+#append
+open('filename1','a')
+data=f.read()///we cant't read only append allowed
+print(data)
+
+a+ --for reading and appending both
+
+
