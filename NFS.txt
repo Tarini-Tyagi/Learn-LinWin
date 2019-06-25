@@ -28,7 +28,7 @@ To export directory : use exports
 
 # vi /etc/nfs.conf
 :q
-#vi /etc/nfs
+
 
 
 /nfs	IPofclient
@@ -87,6 +87,15 @@ server is serving nfs
 #mkdir tt
 ERROR : READONLY
 but server can create
+To make changes persistent:
+vi /etc/fstab
+IPofServer:/nfs /mnt/nfs   nfs  _netdev 0 0
+:wq
+# default: whether or not get IP it will mount [for device]
+# netdev: when IP is to be found over the network
+#mount -a
+#df
+
 ..............................................................................................
 Server side: But server can create 
 And client can see the changed content
@@ -112,13 +121,17 @@ task is a nfs-nobody for server
 The user is other for server [and if we give all permission to other than all can modify
 this is a drawback]
 #chmod 757 /nfs/ -------------giving permission to other
-#exports -r
+#exportfs -r
 #ls -ld /nfs
 bcz of others permission other user can also access we don't want that so
 #chmod 755 /nfs/ ------------so that other than client nobody can make changes
 
 vi /etc/exports
 /nfs  *(rw,no_root_squash)
+:wq
+
+OR
+/nfs  IPofClient(rw,no_root_squash)
 :wq
 #exportfs -r
 #ls -ld /nfs
@@ -157,6 +170,20 @@ movies on disk : share it over n/w
 all can play it using their media player
 
 GFS = Google file system 
+
+
+
+# ls -l                                                                                                     
+total 0                                                                                                                               
+drwxr-xr-x 2 root      root      6 Jun 25 05:38 cat
+drwxr-xr-x 2 nfsnobody nfsnobody 6 Jun 25 05:34 kk
+drwxr-xr-x 2 root      root      6 Jun 25 05:00 tt
+
+
+
+
+
+
 
 
 
