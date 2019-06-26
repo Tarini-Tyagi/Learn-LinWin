@@ -78,9 +78,7 @@ Go to vim file and make change
 
 # systemctl restart sshd ----to apply the changes
 
-troubleshoot4opensource 
 
-Sum+2019@adhoc-----wifi network
 
 
 
