@@ -1,0 +1,46 @@
+Stratis snapshot:
+
+# stratis pool --help
+#stratis pool create --help
+#stratis filesystem --help
+#stratis filesystem create --help
+
+#stratis pool list
+#stratis filesystem list
+# stratis filesystem snapshot poolexam fsexam snap1
+
+pool=poolexam
+filesystem=fsexam
+
+/stratis/filesystem/snapshot
+snapshot===for backup we create snapshot
+snapshot will be a replica of the file system and on deleating the file system snapshot
+will not be effected
+# cd /stratis
+[root@ip-172-31-41-53 stratis]# ls
+poolexam
+[root@ip-172-31-41-53 stratis]# cd poolexam
+[root@ip-172-31-41-53 poolexam]# ls
+fsexam  snap1
+
+............................................................................................................
+Stratis mounting:
+]# mount /stratis/poolexam/fsexam /mnt/stratis
+Determine the UUID attribute of the file system:
+$ lsblk --output=UUID /stratis/poolexam/fsexam 
+OUTPUT:
+UUID
+7c5b0bf2-1e73-444b-b29e-cd734371ce35
+
+As root, edit the /etc/fstab file and add a line for the file system, identified by the UUID.
+Use xfs as the file system type and add the x-systemd.requires=stratisd.service option.
+vi /etc/fstab
+UUID=7c5b0bf2-1e73-444b-b29e-cd734371ce35  /mnt/stratis xfs defaults,x-systemd.requires=stratisd.service 0 0
+
+Regenerate mount units so that your system registers the new configuration:
+
+# systemctl daemon-reload
+Try mounting the file system to verify that the configuration works:
+
+# mount mount-point
+............................................................................................................
