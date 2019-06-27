@@ -1,0 +1,89 @@
+Stratis Storage:
+
+2 to power 24 -- fileSystem can be created from 1 pool
+1 device can be used for 1 pool only
+2 to power 24 of FileSystem from pool [Any no. of devices can be add to pool]
+2 pools can't have same HD attached
+File system [semi virtual device/ virtual HD] is like virtual Storage
+
+By default create FileSystem of xfs type  [No need to mount]
+
+pkg for lvm =lvm2
+
+#yum install stratisd === No available repo
+
+192.168.10.254/pub/rhel8
+AppStream -- Packages for app
+BaseOs  -- Packages for base os
+
+Make repo for both:  [Only for virtual machine]
+vi /etc/yum.repos.d/a.repo
+[a]
+baseurl=ftp://192.168.10.254/pub/rhel8/AppStream/
+gpgcheck=0
+
+[b]
+baseurl=ftp://192.168.10.254/pub/rhel8/BaseOs/
+gpgcheck=0
+:wq
+
+#yum install stratis-cli stratisd -y
+#systemctl start stratisd.service
+#systemctl enable stratisd.service
+
+Attach 3 or 4 virtual hd -- can be done on vmware
+
+#stratis pool [double tab]
+#stratis pool list
+#stratis pool create poolexam /dev/vda /dev/vdb
+#stratis pool list
+poolexam-- name of pool
+# stratis blockdev list
+now pool created , create filesystem
+#stratis filesystem create poolexam exam 
+exam---name of filesystem
+create exam from pool named poolexam
+#stratis filesystem list
++++++the use shown here is not exact [we haven't use anything]
++++++use can be seen from
+#mkdir /mnt/stratis
+#mount /stratis/poolexam/exam  /mnt/stratis
+#df -hT
+Size 1TB is the max size of stratis
+[In 1 pool stratis can have a max size of 1TB]
+[if our device storage is of 10 gb then on inserting data more than that will cause system to
+go in maintainance mode]
+[if we keep data more than our device storage than it will let us store, but in real-time it will
+only store metadata and will not allow our system to be up after reboot
+stratis will stop reading data from pool and go in maintainace mode]
+
+#stratis stratis filesystem create poolexam filesystem1
+#stratis filesystem list
+#mkdir /mnt/fs2
+#mount /stratis/poolexam/filesystem1  /mnt/fs2
+#df -hT
+
+[Similarly 2 to power 24 can be created]
+#fdisk -l
+#stratis pool add-data poolexam /dev/vdc 
+add stroage in existing pool
+#stratis pool list
+
+#stratis pool add-data poolexam /dev/vdd 
+add stroage in existing pool
+#stratis pool list
+
+how to remove single attached hd from this pool
+++Not persistant till now++
+in fstab we have to mention service
+so that after stratis got started then system has to mount
+..................................................................................................................
+]# vi /etc/yum.repos.d/a.repo
+[root@ip-172-31-41-53 ~]# mv /etc/yum.repos.d/a.repo /
+[root@ip-172-31-41-53 ~]# yum install stratis-cli stratisd
+Waiting for process with pid 1290 to finish.
+^CKeyboardInterrupt: Terminated.
+[root@ip-172-31-41-53 ~]# kill -9 1290
+[root@ip-172-31-41-53 ~]# yum install stratis-cli stratisd
+Complete!
+
