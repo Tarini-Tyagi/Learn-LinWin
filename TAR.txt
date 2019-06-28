@@ -1,0 +1,24 @@
+
+File Compression with 'tar'command
+
+ Compress a folder
+ 
+This creates a simple archive of a folder :
+tar -cf ./my-archive.tar ./my-folder/
+Verbose output shows which files and directories are added to the archive, use the -v option:
+tar -cvf ./my-archive.tar ./my-folder/
+For archiving a folder compressed 'gzip', you have to use the -z option :
+tar -czf ./my-archive.tar.gz ./my-folder/
+You can instead compress the archive with 'bzip2', by using the -j option:
+tar -cjf ./my-archive.tar.bz2 ./my-folder/
+Or compress with 'xz', by using the -J option:
+tar -cJf ./my-archive.tar.xz ./my-folder/
+
+ Extract a folder from an archive
+There is an example for extract a folder from an archive in the current location :
+tar -xf archive-name.tar
+If you want to extract a folder from an archive to a specfic destination :
+tar -xf archive-name.tar -C ./directory/destination
+
+List contents of an archive
+tar -tf archive.tar.gz
