@@ -1,0 +1,91 @@
+LVM
+virt-manager
+fdisk -l
+ssh -X root@ip
+ssh-- ssh ip ( takes the user in which you are currently working or logged in)
+-X(to graphically take it to the system)
+virtol 3GB 
+new disk will be added
+---------------------------------
+fdisk -l
+select hard disk for partition
+fdisk/dev/vdf
+p(print)
+n(new)
++100M( tomcreate a partition on 100mb)
+p
+n
+enter
++200
+p
+n
+can create 60 partitions + 4 primary
+128 primary partitons gpt
++200
+p
+n
+logical partition  arrives
+wq(save)
+partprobe(when disk does not sink on run time)
+pvcreate /dev/vdf1
+man vgcreate
+vgcreate adhoc  /dev/vdf1/dev/vdf2
+man lvcreate
+lvcreate --name tech --size +50M 
+lvcreate --name tech --size +50M adhoc  
+lvs
+lvdisplay
+vgs
+vgdisplay
+mkfs.ext4 /dev/adhoc/tech
+mkdir /mnt/test
+mount /dev/adoc/tech/mnt/test
+	(souce)		(destination)
+df -hT
+{fstab(permanent mount)}
+vim/etc/fstab
+df -hT
+fsdisk -l
+umount /dev/mapper/adhoc-tech
+vim /etc/ (/dev/mapper/adhoc-tech    /mnt/test  ext4 defaults 0 0 )
+umount /dev/mapper/adhoc-tech(givs 00 to give default)
+mount -a
+reboot
+(if your entry is wrong umount # se omment your statement ten reboot)
+----------------------------------------------
+#extend size
+lvcreate --name gost --size +50M adhoc -l
+  vgcreate -s 16M adhoc1/dev/vdf3 /dev/vdf5/dev/vdf6
+vgdisplay
+lvcreate --name test2 -l 46579847507 adhoc1
+lvcreate --name test2 -l adhoc1
+mkfs.minix mkfs.vfat
+mkfs.vfat /dev/adhoc1/test2
+mkdir /mnt/ghgh
+mount /dv/adhoc1/test2/mnt/ghgh
+vim/etc/fstab (/dev/mapper/adhoc-tech    /mnt/test  ext4 defaults 0 0 )
+umount /mnt/ghgh
+mount -a
+df -hT
+reboot
+---------------------------------------------------
+vim/etc/fstab
+instead of default write---------------x-systemd.requires=stratisd=service 0 0 
+lsblk --output=uuid /dev/sda
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
