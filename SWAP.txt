@@ -1,0 +1,27 @@
+SWAP: Convert Hard disk memory into RAM
+Use HD as RAM and that part of HD is known as swap memory
+
+if ram is 2 GB than on HD 2GB of partion
+if ram is 8 GB or greater than 8 then on HD 4GB of partion
+
+# free -m     to check RAM uses
+#lsblk -------to see which HD is in use where
+fdisk /dev/xvde
+n
+512M --- create single partition of any size
+To Format:[No mounting is done]
+# mkswap [instead of mkfs]
+# mkswap /dev/xvde
+# swap
+#swapon /dev/xvde
+#free -m
+#swapoff /dev/xvde  -- to turn it off from cli
+
+To make it persistent:
+lsblk --output=UUID /dev/xvde
+
+vi /etc/fstab
+UUID=2783972984 swap   swap  defaults 0 0
+to check entry of fstab
+#swapon -a
+#free -m
