@@ -1,0 +1,27 @@
+IP Forwarding: 
+IP of two different zones [diff lan card] can communicate with each other
+
+#sysctl -a |grep -i ip_forward
+net.ipv4.ip_forward = 0                     ------o/p
+1=enabled
+0=disabled
+To make changes permanent
+# vim /etc/sysctl.conf
+INSERT
+net.ipv4.ip_forward = 1
+:wq
+
+# sysctl -p 
+to load updated settings
+net.ipv4.ip_forward = 1 ----o/p
+..............................................................................................................................................................................................
+Temporarlly set IP forwarding:  [work until reboot]
+
+# sysctl net.net.ipv4.ip_forward = 1
+net.net.ipv4.ip_forward = 1
+# sysctl net.net.ipv4.ip_forward = 0
+net.net.ipv4.ip_forward = 0
+# sysctl -p
+net.net.ipv4.ip_forward = 1
+
+work like setenforce for selinux
