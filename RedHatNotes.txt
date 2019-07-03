@@ -1,0 +1,103 @@
+#hostnamectl set-hostname station154.example.com
+#bash
+To change host name
+154 last octate of our IP --- ifconfig
+
+create lvm 530 mb--
+if size already is = 200
+just add 330
+
+expand the capacitp===add data
+
+dynamically -- filesystem is increasing in length
+
+210--passing
+2:30   
+
+>>>>>>>System Tunning:>>>>>>>>>
+
+balance
+power saving
+display -----better performance for GUI application
+virtual Host----giving 100% performance to base machine
+Virtual Guest --- giving 100 performance to virtual machine
+
+# yum repolist
+# yum install tuned
+# systemctl start tuned
+# systemctl enable tuned
+# tune
+# tune-adm
+# tune-adm list
+show available profiles
+[exam: set desktop profile]
+
+# tune-adm active
+to check current active profile
+
+# tune-adm recommend
+virtual-guest-----o/p
+best for your system
+
+
+To set the profile:
+#tune-adm profile balanced
+#tune-adm active
+balanced-----o/p
+
+Check that after reboot also it should be balanced
+whatever work you do it should be persistent
+After reboot:
+
+#tune-adm active
+balanced-----o/p
+.....................................................................................................................................
+
+Nice command ------- 
+
+2 tasks in downloading-- out of which you want 1 to perform better
+nice--- when we are starting process we tell it that you have to perform good irrespective of what os says
+
+-20(high per) to +19(low)
+o =neutral
+10 low but not very very low
+-11 high but not much
+
+# ps -l  ----to see nice for process currently running process by system
+# ps -xl
+# vim &-----to send process in backend
+# ps -xl | grep vim
+
+For doing nice:
+#nice -n -10 vim &
+# ps -xl | grep vim
+
+
+Renice---- for already running task
+#renice -n 10 processid
+[we get processid from the output of ps -xl | grep vim]
+#renice -n 10 6932
+# ps -xl | grep vim
+
+/////# ps -o pid,pcpu,nice,comm --sort=pcpu
+#ps -aux --sort=pcpu  --show cpu usage of process
+process consuming most cpu - renice it
+
+
+15GB main kaam karta h --video
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
