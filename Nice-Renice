@@ -1,0 +1,31 @@
+
+Nice command ------- 
+
+2 tasks in downloading-- out of which you want 1 to perform better
+nice--- when we are starting process we tell it that you have to perform good irrespective of what os says
+
+-20(high per) to +19(low)
+o =neutral
+10 low but not very very low
+-11 high but not much
+
+# ps -l  ----to see nice for process currently running process by system
+# ps -xl
+# vim &-----to send process in backend
+# ps -xl | grep vim
+
+For doing nice:
+#nice -n -10 vim &
+# ps -xl | grep vim
+
+
+Renice---- for already running task
+#renice -n 10 processid
+[we get processid from the output of ps -xl | grep vim]
+#renice -n 10 6932
+# ps -xl | grep vim
+
+/////# ps -o pid,pcpu,nice,comm --sort=pcpu
+#ps -aux --sort=pcpu  --show cpu usage of process
+process consuming most cpu - renice it
+
