@@ -1,0 +1,13 @@
+Removing the HDD:
+
+in deattach it will be removed from amazon instance only
+On stoping the instance- and for deattach:- 
+            - remove entry for fstab
+				    - unmount
+				    - then deattach 
+            
+            
+stop the instance --- deattach volume (unmount)  [entry should not be there in fstab]
+		--delete volume
+with the entry in fstab-- stop instance -- deattach vol >> instance will corrupt permanently
+
