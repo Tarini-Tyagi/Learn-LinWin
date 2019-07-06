@@ -1,0 +1,16 @@
+Default Permissions
+Linux assigns default permissions to a file or directory at the time of its creation. Default permissions are calculated
+based on the umask (user mask) permission value subtracted from a preset value called initial permissions.
+The umask is a three-digit value that refers to read/write/execute permissions for owner, group, and public. Its purpose
+is to set default permissions on new files and directories created without touching the existing files and directories. In
+RHEL, the default umask value is set to 0022 for the root and other system users and 0002 for all regular users with
+bash shell assigned. Note that the left-most 0 has no significance. Run the umask command without any options and it
+will display the current umask value:
+$ umask
+0002
+Run the command again but with the –S option to display the umask in symbolic notation:
+$ umask –S
+u=rwx,g=rwx,o=rx
+The pre-defined initial permission values are 666 (rw-rw-rw-) for files and 777 (rwxrwxrwx) for directories. Even if
+the umask is set to 000, the new files will always get a maximum of 666 permissions, and we use the chmod command
+to add executable bits explicitly if desired.
