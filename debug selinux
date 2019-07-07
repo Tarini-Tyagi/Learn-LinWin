@@ -1,0 +1,29 @@
+CHANGING PORT NUMBERS
+
+Depending on policy configuration, services may only be allowed to run on certain port numbers.
+Attempting to change the port a service runs on without changing policy may result in the service failing to start.
+Run the semanage port -l | grep -w "http_port_t" command as the root user to list the ports SELinux allows httpd to listen on:
+
+# semanage port -l | grep -w http_port_t
+http_port_t                    tcp      80, 443, 488, 8008, 8009, 8443
+
+By default, SELinux allows http to listen on TCP ports 80, 443, 488, 8008, 8009, or 8443.
+If /etc/httpd/conf/httpd.conf is configured so that httpd listens on any port not listed for http_port_t, httpd fails to start.
+
+To configure httpd to run on a port other than TCP ports 80, 443, 488, 8008, 8009, or 8443:
+
+Edit /etc/httpd/conf/httpd.conf as the root user so the Listen option lists a port that is not configured in SELinux policy for httpd.
+The following example configures httpd to listen on the 10.0.0.1 IP address, and on TCP port 12345:
+# Change this to Listen on specific IP addresses as shown below to 
+# prevent Apache from glomming onto all bound IP addresses (0.0.0.0)
+#
+#Listen 12.34.56.78:80
+Listen 10.0.0.1:12345
+
+Run the semanage port -a -t http_port_t -p tcp 12345 command as the root user to add the port to SELinux policy configuration.
+Run the semanage port -l | grep -w http_port_t command as the root user to confirm the port is added:
+
+# semanage port -l | grep -w http_port_t
+http_port_t                    tcp      12345, 80, 443, 488, 8008, 8009, 8443
+If you no longer run httpd on port 12345, run the semanage port -d -t http_port_t -p tcp 12345 command as the root user to remove
+the port from policy configuration.
