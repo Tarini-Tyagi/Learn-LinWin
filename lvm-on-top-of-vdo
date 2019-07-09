@@ -1,0 +1,22 @@
+ To install vdo:
+ yum -y install vdo kmod-kvdo
+ 
+ Create vdo:
+  vdo create --name=vdo1 --device=/dev/vdb1 --vdoLogicalSize=1T
+  
+  CREATING VOLUME GROUP, LOGICAL VOLUME AND FILE SYSTEM ON TOP OF THE VDO VOLUME
+[root@vdotest ~]# pvcreate /dev/mapper/vdo1
+[root@vdotest ~]# vgcreate vg_vdo /dev/mapper/vdo1
+[root@vdotest ~]# lvcreate -n lv_vdo vg_vdo -L 900G
+[root@vdotest ~]# mkfs.xfs -K /dev/vg_vdo/lv_vdo
+
+To make changes persistent: [Entry in fstab]
+[root@vdotest ~]# echo "/dev/mapper/vg_vdo-lv_vdo       /mnt    xfs     defaults,x-systemd.requires=vdo.service 0 0" >> /etc/fstab
+
+ DISPLAY THE WHOLE STACK
+[root@vdotest ~]# lsblk /dev/vdb
+NAME                MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+vdb                 252:16   0  110G  0 disk 
+└─vdb1              252:17   0  100G  0 part 
+  └─vdo1            253:7    0    1T  0 vdo  
+    └─vg_vdo-lv_vdo 253:8    0  900G  0 lvm  /mnt
