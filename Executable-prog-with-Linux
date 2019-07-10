@@ -1,0 +1,39 @@
+Syntax:
+g++ [-c] [-g] [-O] file.cpp [-o outputfile]
+
+We suggest using the GNU C++ compiler, which is
+included in almost any Linux distribution. The linker
+is already included, but can be called separately.
+
+Important options:
+-o the name of the executable object (program).
+Default ‘a.out’.
+-c compile only, do not link.
+-g include debug information. Necessary for later
+debugging. Increases the size and execution time
+of the program.
+-O optimization (default: intermediate optimization)
+
+Example:
+wegner@arber:~ > g++ hello.cpp
+wegner@arber:~ > ./a.out
+Hello, world!
+wegner@arber:~ > g++ hello.cpp -o hello
+wegner@arber:~ > ./hello
+Hello, world!
+51
+The character ./ in front of a.out and hello is usually
+required to tell the shell that the executable program
+is located within the current directory.
+Now in two steps: compile at first, then link
+
+Example:
+wegner@arber:~ > g++ -c hello.cpp
+wegner@arber:~ > g++ hello.o -o hello
+If more than one source file is present (e.g., if each
+sub-program is contained in a separate source file),
+one can avoid unnecessary compilations and a lot
+of command-line typing by using so-called makefiles,
+which allow updating executable programs using just
+one command. For further info, google for makefile
+and/or contact your supervisor.
